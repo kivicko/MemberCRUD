@@ -1,21 +1,20 @@
 package com.kivilcimeray.member.models;
 
 import org.hibernate.validator.constraints.Email;
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.constraints.Size;
 
 /**
  * Created by anıl on 02.11.2016.
  */
 
-@Entity
+@Document
 public class Member {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
-    @Version
-    private Integer version;
+    @Id
+    private String id;
 
     @Email(message = "Wrong email format")
     private String email;
@@ -26,11 +25,11 @@ public class Member {
     @Size(min = 10, max = 20, message = "Your phone should contain more than 10 and less then 20 numbers.")
     private String phoneNumber;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
