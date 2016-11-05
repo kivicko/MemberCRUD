@@ -18,11 +18,11 @@ public class Member {
 
     @Email(message = "Wrong email format")
     private String email;
-    @Size(min = 3, max = 20, message = "First name should contain more than 2 and less then 20 letters.")
+    @Size(min = 3, max = 20)
     private String name;
-    @Size(min = 2, max = 20, message = "Last name should contain more than 1 and less then 20 letters.")
+    @Size(min = 2, max = 20)
     private String surname;
-    @Size(min = 10, max = 20, message = "Your phone should contain more than 10 and less then 20 numbers.")
+    @Size(min = 10, max = 20)
     private String phoneNumber;
 
     public String getId() {
