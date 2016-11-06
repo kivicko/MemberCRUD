@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -37,8 +36,6 @@ public class MemberController {
         logger.info("inside saveOrUpdate()");
         if (bindingResult.hasErrors()) {
             logger.warn("saveOrUpdate methods Member object has some errors." + bindingResult.toString());
-//            model.addAttribute("members", service.listAll());
-//            return "index";
             return "redirect:/";
         }
         service.saveOrUpdate(member);
@@ -46,14 +43,14 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String displayAddMember(Model model) {
-        logger.info("inside displayAddMember()");
-        model.addAttribute("new-member", new Member());
-        return "index :: new-member";
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String updateMember(@PathVariable String id, Model model) {
+        logger.info("inside displayMember()");
+        model.addAttribute("member", service.getById(id));
+
+        return "index :: display-member";
     }
 
-    //TODO check if you can handl it with type DELETE
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
     public String deleteMember(@PathVariable String id, Model model) {
         logger.info("inside deleteMember() id : " + id);

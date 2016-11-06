@@ -1,3 +1,19 @@
+//  var $form = $('#addmember');
+//  $form.on('submit', function(e) {
+//    $.ajax({
+//      url: $form.attr('action'),
+//      type: 'post',
+//      data: $form.serialize(),
+//      cache: false,
+//      success: function(response) {
+//        alert('OLEY
+//
+//
+//        ')
+//      },
+//  });
+//});
+
 // DELETE BUTTON DATA COPY START
     $('#modal-delete-member').on('show.bs.modal', function(e) {
             $(this).find('.btn-ok').attr('id', $(e.relatedTarget).data('href'));
@@ -45,6 +61,7 @@
         })
     })
   // Form Validation END
+
     // Remove ID from modal if empty START
     $('button.add').on('click', function() {
     var memberModal = $('#modal-add-member');
@@ -82,3 +99,6 @@
       $(this).find('form')[0].reset();
   });
   // RESET MODAL ON CLOSE END
+//
+  $('#response').ajaxStart(function() { $(this).attr('hidden', 'false'); });
+  $('#response').ajaxComplete(function() { $(this).attr('hidden', 'true'); });

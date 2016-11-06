@@ -21,8 +21,6 @@
                                 <h4 class="modal-title">Add Member</h4>
                             </div>
                             <div class="modal-body" th:fragment="members">
-
-
                                 <div>
                                     <label class="control-label">First Name</label>
                                     <input class="name" th:field="*{name}" type="text" placeholder="Name"/>
@@ -49,7 +47,10 @@
                                 </div>
                                 <input class="id" th:field="*{id}" hidden="true" type="text"/>
                             </div>
-                            <div class="modal-footer">
+                            <div id="response" hidden="true">
+                                <img th:src="@{/images/gif_load.gif}" />
+                            </div>
+                            <div class="modal-footer" >
                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                     Close
                                 </button>
