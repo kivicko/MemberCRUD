@@ -14,14 +14,15 @@
             <div class="modal fade" id="modal-add-member" role="dialog" aria-labelledby="myModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">*</button>
-                            <h4 class="modal-title">Add Member</h4>
-                        </div>
-                        <div class="modal-body" th:fragment="members">
-                            <form id="addmember" name="addmember" th:action="@{/}" th:object="${member}"
-                                  method="post">
+                    <form id="addmember" name="addmember" th:action="@{/}" th:object="${member}" method="post">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">*</button>
+                                <h4 class="modal-title">Add Member</h4>
+                            </div>
+                            <div class="modal-body" th:fragment="members">
+
+
                                 <div>
                                     <label class="control-label">First Name</label>
                                     <input class="name" th:field="*{name}" type="text" placeholder="Name"/>
@@ -47,18 +48,17 @@
                                     <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
                                 </div>
                                 <input class="id" th:field="*{id}" hidden="true" type="text"/>
-                                <input type="submit" class="btn btn-primary" value="Add"/>
-                            </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    Save changes
+                                </button>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                Close
-                            </button>
-                            <button type="button" class="btn btn-primary">
-                                Save changes
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <!-- add member modal ends -->
