@@ -1,6 +1,7 @@
 package com.kivilcimeray.member.models;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,14 +16,13 @@ public class Member {
 
     @Id
     private String id;
-
-    @Email(message = "Wrong email format")
+    @NotEmpty
+    @Email
     private String email;
     @Size(min = 3, max = 20)
     private String name;
     @Size(min = 2, max = 20)
     private String surname;
-    @Size(min = 10, max = 20)
     private String phoneNumber;
 
     public String getId() {

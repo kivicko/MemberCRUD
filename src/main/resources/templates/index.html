@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <button type="button" data-toggle="modal" data-target="#modal-add-member" class="btn btn-primary">
+            <button type="button" data-toggle="modal" data-target="#modal-add-member" class="btn btn-primary add">
                 Add Member
             </button>
             <!-- add member modal starts -->
@@ -20,31 +20,33 @@
                             <h4 class="modal-title">Add Member</h4>
                         </div>
                         <div class="modal-body" th:fragment="members">
-                            <form id="memberInfo" name="memberInfo" th:action="@{/}" th:object="${member}"
+                            <form id="addmember" name="addmember" th:action="@{/}" th:object="${member}"
                                   method="post">
                                 <div>
                                     <label class="control-label">First Name</label>
-                                    <input th:field="*{name}" type="text"/>
+                                    <input class="name" th:field="*{name}" type="text" placeholder="Name"/>
                                     <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
                                 </div>
                                 <div>
                                     <label class="control-label">Surname</label>
-                                    <input th:field="*{surname}" type="text"/>
+                                    <input class="surname" th:field="*{surname}" type="text" placeholder="Surname"/>
                                     <td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error
                                     </td>
                                 </div>
                                 <div>
                                     <label class="control-label">Phone Number</label>
-                                    <input th:field="*{phoneNumber}" type="text"/>
+                                    <input class="phonenumber" id="phoneNumber" th:field="*{phoneNumber}" type="text"
+                                           placeholder="Phone Number"/>
                                     <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Phone
                                         Number Error
                                     </td>
                                 </div>
                                 <div>
                                     <label class="control-label">Email</label>
-                                    <input th:field="*{email}" ftype="text"/>
+                                    <input class="email" th:field="*{email}" type="text" placeholder="Email"/>
                                     <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
                                 </div>
+                                <input class="id" th:field="*{id}" hidden="true" type="text"/>
                                 <input type="submit" class="btn btn-primary" value="Add"/>
                             </form>
                         </div>
@@ -74,15 +76,18 @@
                 <tbody th:fragment="members" th:each="member,iterStat : ${members}">
                 <tr>
                     <td th:text="${iterStat.count}"></td>
-                    <td th:text="${member.name}"></td>
-                    <td th:text="${member.surname}"></td>
-                    <td th:text="${member.email}"></td>
-                    <td th:text="${member.phoneNumber}"></td>
+                    <td class="name" th:text="${member.name}"></td>
+                    <td class="lastname" th:text="${member.surname}"></td>
+                    <td class="email" th:text="${member.email}"></td>
+                    <td class="phonenumber" th:text="${member.phoneNumber}"></td>
+                    <td class="id" hidden="true" th:text="${member.id}"></td>
                     <td>
-                        <button type="button" class="btn btn-warning">
+                        <button type="button" class="btn btn-warning edit">
                             Edit
                         </button>
-                        <button type="button" th:attr="data-href=${member.id}" data-toggle="modal" data-target="#modal-delete-member" class="btn btn-danger">
+
+                        <button type="button" th:attr="data-href=${member.id}" data-toggle="modal"
+                                data-target="#modal-delete-member" class="btn btn-danger">
                             Delete
                         </button>
                         <!-- Delete member modal start-->
@@ -92,7 +97,7 @@
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">*
                                         </button>
-                                        <h4 class="modal-title" >Delete Member</h4>
+                                        <h4 class="modal-title">Delete Member</h4>
                                     </div>
                                     <div class="modal-body">
                                         <p>Do you realy want to delete this member?</p>
@@ -101,7 +106,8 @@
                                         <button type="button" class="btn btn-default" data-dismiss="modal">
                                             Close
                                         </button>
-                                        <button type="button" th:onclick="'javascript:onDelete(this)'" class="btn btn-primary btn-ok">
+                                        <button type="button" th:onclick="'javascript:onDelete(this)'"
+                                                class="btn btn-primary btn-ok">
                                             Delete Member
                                         </button>
                                     </div>
@@ -116,11 +122,9 @@
         </div>
     </div>
 </div>
-<section id="site-footer" th:replace="template :: site-footer-js">
+<section id="site-footer" th:replace="template :: site-footer-js"></section>
 
-</section>
 <script>
-
 </script>
 </body>
 </html>

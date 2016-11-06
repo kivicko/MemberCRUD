@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -36,19 +37,13 @@ public class MemberController {
         logger.info("inside saveOrUpdate()");
         if (bindingResult.hasErrors()) {
             logger.warn("saveOrUpdate methods Member object has some errors." + bindingResult.toString());
-            return "index";
+//            model.addAttribute("members", service.listAll());
+//            return "index";
+            return "redirect:/";
         }
         service.saveOrUpdate(member);
 
         return "redirect:/";
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String updateMember(@PathVariable String id, Model model) {
-        logger.info("inside displayMember()");
-        model.addAttribute("member", service.getById(id));
-
-        return "index :: display-member";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

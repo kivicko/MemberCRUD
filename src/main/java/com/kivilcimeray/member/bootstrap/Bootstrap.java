@@ -1,6 +1,5 @@
 package com.kivilcimeray.member.bootstrap;
 
-import com.kivilcimeray.member.controllers.MemberController;
 import com.kivilcimeray.member.models.Member;
 import com.kivilcimeray.member.services.MemberService;
 import org.slf4j.Logger;
@@ -14,9 +13,9 @@ import org.springframework.stereotype.Component;
  * Created by anıl on 04.11.2016.
  */
 @Component
-public class JpaBootstrap implements ApplicationListener<ContextRefreshedEvent> {
+public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
-    private final Logger logger = LoggerFactory.getLogger(JpaBootstrap.class);
+    private final Logger logger = LoggerFactory.getLogger(Bootstrap.class);
 
     @Autowired
     MemberService memberService;
@@ -27,7 +26,7 @@ public class JpaBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         Member sample1 = new Member();
         sample1.setName("Kivilcim");
         sample1.setSurname("ERAY");
-        sample1.setPhoneNumber("05331234567");
+        sample1.setPhoneNumber("5331234567");
         sample1.setEmail("kivi@kivi.com");
 
         memberService.saveOrUpdate(sample1);
