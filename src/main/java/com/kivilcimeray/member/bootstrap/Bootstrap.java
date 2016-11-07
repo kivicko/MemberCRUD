@@ -22,7 +22,6 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        logger.info("Inside onApplicationEvent()");
         Member sample1 = new Member();
         sample1.setName("Kivilcim");
         sample1.setSurname("ERAY");
@@ -30,5 +29,6 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         sample1.setEmail("kivi@kivi.com");
 
         memberService.saveOrUpdate(sample1);
+        logger.info("Inside onApplicationEvent(), creating default user : " + sample1);
     }
 }

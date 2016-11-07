@@ -2,6 +2,8 @@ package com.kivilcimeray.member.controllers;
 
 import com.kivilcimeray.member.models.Member;
 import com.kivilcimeray.member.services.MemberService;
+import com.kivilcimeray.member.validator.RecaptchaProperties;
+import com.kivilcimeray.member.validator.RecaptchaValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -19,6 +23,8 @@ public class MemberController {
 
     @Autowired
     MemberService service;
+
+    private RecaptchaValidator recaptchaValidator = new RecaptchaValidator(new RestTemplate(), new RecaptchaProperties());
 
     private final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
@@ -32,8 +38,14 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String saveOrUpdate(@Valid Member member, BindingResult bindingResult, Model model) {
+    public String saveOrUpdate(@Valid Member member, BindingResult bindingResult, Model model, HttpServletRequest request) {
         logger.info("inside saveOrUpdate()");
+
+        if(member.getId() == null && recaptchaValidator.validate(request).isFailure()) {
+            logger.error("Validator Error : " + recaptchaValidator.validate(request).toString());
+            return "redirect:/";
+        }
+
         if (bindingResult.hasErrors()) {
             logger.warn("saveOrUpdate methods Member object has some errors." + bindingResult.toString());
             return "redirect:/";
@@ -45,7 +57,7 @@ public class MemberController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String updateMember(@PathVariable String id, Model model) {
-        logger.info("inside displayMember()");
+        logger.info("inside updateMember() id : " +id);
         model.addAttribute("member", service.getById(id));
 
         return "index :: display-member";

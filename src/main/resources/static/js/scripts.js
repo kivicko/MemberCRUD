@@ -1,19 +1,3 @@
-//  var $form = $('#addmember');
-//  $form.on('submit', function(e) {
-//    $.ajax({
-//      url: $form.attr('action'),
-//      type: 'post',
-//      data: $form.serialize(),
-//      cache: false,
-//      success: function(response) {
-//        alert('OLEY
-//
-//
-//        ')
-//      },
-//  });
-//});
-
 // DELETE BUTTON DATA COPY START
     $('#modal-delete-member').on('show.bs.modal', function(e) {
             $(this).find('.btn-ok').attr('id', $(e.relatedTarget).data('href'));
@@ -34,15 +18,17 @@
 // DELETE END
 
   // INPUT MASK FOR PHONE NUMBER START
-    $("#phoneNumber").mask("(999) 999-99-99");
+    $("input.phonenumber").mask("(999) 999-99-99");
   // INPUT MASK FOR PHONE NUMBER END
 
-  // Form Validation START
+  // ADD Form Validation START
   $(document).ready(function () {
   $("#addmember").validate({
+    ignore: ".ignore",
     rules: {
         email: {
             required: true,
+            email: true,
             minlength: 5
         },
         name: {
@@ -56,11 +42,49 @@
             minlength: 3,
             maxlength: 20,
             lettersonly: true
+        },
+        hiddenRecaptcha: {
+            required: function () {
+                if (grecaptcha.getResponse() == '') {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         }
-        }
-        })
+    }
     })
-  // Form Validation END
+    })
+  // ADD Form Validation END
+
+  // EDIT Form Validation Start
+
+  $(document).ready(function () {
+    $("#editmember").validate({
+      ignore: ".ignore",
+      rules: {
+          email: {
+              required: true,
+              email: true,
+              minlength: 5
+          },
+          name: {
+              required: true,
+              minlength: 3,
+              maxlength: 20,
+              lettersonly: true
+          },
+          surname: {
+              required: true,
+              minlength: 3,
+              maxlength: 20,
+              lettersonly: true
+          },
+      }
+      })
+      })
+
+  // EDIT Form Validation END
 
     // Remove ID from modal if empty START
     $('button.add').on('click', function() {
@@ -69,13 +93,10 @@
             $('.id', memberModal).remove();
         }
     })
-    // Remove ID from modal if empty END
-
-
 
   // EDIT BUTTON & FORM START
   $('button.edit').on('click', function() {
-    var memberModal = $('#modal-add-member');
+    var memberModal = $('#modal-edit-member');
     // get values
     var name = $(this).closest('tr').find('td.name').html();
     var lastname = $(this).closest('tr').find('td.lastname').html();
@@ -98,7 +119,8 @@
   $('#modal-add-member').on('hidden.bs.modal', function(){
       $(this).find('form')[0].reset();
   });
+  $('#modal-edit-member').on('hidden.bs.modal', function(){
+      $(this).find('form')[0].reset();
+  });
   // RESET MODAL ON CLOSE END
 //
-  $('#response').ajaxStart(function() { $(this).attr('hidden', 'false'); });
-  $('#response').ajaxComplete(function() { $(this).attr('hidden', 'true'); });

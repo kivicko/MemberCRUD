@@ -3,7 +3,7 @@ package com.kivilcimeray.member.integration;
 import com.kivilcimeray.member.config.TestApplicationConfig;
 import com.kivilcimeray.member.models.Member;
 import com.kivilcimeray.member.services.MemberService;
-import org.junit.Assert;
+import com.kivilcimeray.member.validator.RecaptchaValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,9 @@ public class MemberIT {
 
     @Autowired
     MemberService memberService;
+
+
+    RecaptchaValidator recaptchaValidator;
 
     @Test
     public void should_save_member() {
@@ -50,7 +53,7 @@ public class MemberIT {
     }
 
     @Test
-    public void should_remove_bootstrapped_sample_member() {
+    public void should_remove_member() {
         String id = "123";
         Member sample1 = new Member();
         sample1.setId(id);
@@ -87,7 +90,6 @@ public class MemberIT {
         assert memberService.listAll().size() != 1;
         assert memberService.getById(id) != null;
         assertEquals(lastEmail, memberService.getById(id).getEmail());
-
 
 
     }
