@@ -2,7 +2,9 @@
 
 This project is a basic CRUD app which you can add & update & delete members with their name, surname, email and phone number properties.
 
-Created with Spring, Thymeleaf and jQuery.
+Created with Spring, Thymeleaf and jQuery. 
+
+Special thanks to https://github.com/mkopylec/recaptcha-spring-boot-starter/ for this opensource recaptcha library. it works awesome!
 
 ## Motivation
 
