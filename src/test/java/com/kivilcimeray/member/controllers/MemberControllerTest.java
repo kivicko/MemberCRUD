@@ -45,7 +45,6 @@ public class MemberControllerTest {
         MockitoAnnotations.initMocks(this);
 
         mockMvc = MockMvcBuilders.standaloneSetup(memberController).build();
-
     }
 
     @Test
